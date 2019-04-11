@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import signUp from '@/components/signUp'
 import signIn from '@/components/signIn'
 import Home from '@/components/home'
+import newsList from '@/components/component/news-component'
 import news from '@/components/component/homeView'
 import no from '@/components/component/noView'
 import imgs from '@/components/component/imgView'
@@ -14,11 +15,11 @@ export default new Router({
   mode: 'history',
   routes: [
     // { path: "*", redirect: '/signIn' },
-    {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
+    // {
+    //   path: '/hello',
+    //   name: 'HelloWorld',
+    //   component: HelloWorld
+    // },
     {
       path: '/signUp',
       name: 'signUp',
@@ -29,14 +30,19 @@ export default new Router({
       name: 'signIn',
       component: signIn
     },
-    { path: '/news', component: news, name: '头条', },
-    { path: '/no', component: no, name: '待定', },
-    { path: '/imgs', component: imgs, name: '美图', },
-    { path: '/me', component: me, name: '我', },
+    // { path: '/news', component: news, name: '头条', },
+    // { path: '/no', component: no, name: '待定', },
+    // { path: '/imgs', component: imgs, name: '美图', },
+    // { path: '/me', component: me, name: '我', },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home,
+      path: '/newsList',
+      name: 'newsList',
+      component: newsList,
+    },
+    {
+      path: '/',
+      name: 'newsList',
+      component: newsList,
     }
   ]
 })

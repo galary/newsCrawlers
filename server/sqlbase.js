@@ -3,12 +3,15 @@ var login_name = 'zygg'
 var sqlMap = {
   // 用户
   user: {
-    add: 'insert into user_info(user_name, user_pwd,create_time) values (?,?,?)',
-    check: 'select user_name,user_pwd from user_info',
+    add: 'insert into user_info(username, pwd,create_time) values (?,?,?)',
+    check: "select * from user_info where username=?",
+    signIn: "select * from user_info where username=? and pwd=?",
+    upvote: "insert into user_news (newsId,userId,type) values (?,?,?)",
+    favorite: "insert into user_news (newsId,userId,type) values (?,?,?)",
   },
-  message: {
-    written: 'insert into message_board(message_list, author, date) values (?,?,?)',
-    search: 'select message_list, author, date from message_board'
+  upvote: {
+    searchOne: 'select news.upvote from news  limit ?,?',
+    searchAll: 'select news.upvote from news where newsId=? limit ?,?'
   },
   diary: {
     written: 'insert into diary_board(diary_list, author, date) values (?,?,?)',
@@ -21,8 +24,10 @@ var sqlMap = {
   },
   news: {
     addNews: 'insert into news(title, href,author,upvote,favorite,createTime) values (?,?,?,?,?,?)',
-    searchNews: 'select title from news',
-    delate: 'truncate table news'
+    searchNews: "select a.* , case when ( select  userNewsId from user_news b where userId=? and a.newsId = b.newsId and type=1 ) >0 then 1 else 0 end as isupvote,case when ( select  userNewsId from user_news b where userId = ? and a.newsId = b.newsId and type=0)>0 then 1 else 0 end as isFavorite from news a limit ?,?",
+    delate: 'truncate table news',
+    upvote: 'update news set upvote=upvote+1 where newsId=?',
+    favorite: 'update news set favorite=favorite+1 where newsId=?',
   }
 }
 module.exports = sqlMap;
